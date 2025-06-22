@@ -1,6 +1,6 @@
 import sqlalchemy.orm as orm
 from sqlalchemy import Column, Integer, String, create_engine
-from sqlalchemy import select,delete
+from sqlalchemy import select,delete,update
 import urllib.parse
 password = "!@#muzzy2006"
 encoded = urllib.parse.quote_plus(password)
@@ -10,7 +10,6 @@ Base = orm.declarative_base()
 sessionLocal = orm.sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 class User(Base):
-
     __tablename__ = "Users"
     User_ID = Column(Integer, primary_key=True, autoincrement=True)
     name= Column(String(100),nullable=False)
@@ -41,7 +40,13 @@ def delete_user(id):
     db.execute(st)   
     db.commit()
     db.close()
-
-add_user("MUZAMIL BROTHER",50)
+def update_user(id,newname,newage):
+    db = sessionLocal()
+    st = update(User).filter_by(User_ID=id).values(name=newname,age=newage)
+    db.execute(st)
+    db.commit()
+    db.close()
+# add_user("MUZAMIL BROTHER",50)
+update_user(1,"MUZZY",19)
 get_user()
-delete_user(2)
+# delete_user(2)
