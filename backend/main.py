@@ -28,7 +28,7 @@ def add_user(name,age):
     db.add(User(name=name,age=age))
     db.commit()
     db.close()
-def printAll():
+def get_user():
     db = sessionLocal()
     st = select(User.name,User.age,User.User_ID)
     data = db.execute(st).fetchall()
@@ -43,6 +43,5 @@ def delete_user(id):
     db.close()
 
 add_user("MUZAMIL BROTHER",50)
-printAll()
+get_user()
 delete_user(2)
-printAll()
