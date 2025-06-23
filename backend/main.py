@@ -27,11 +27,16 @@ def addNote(notes_topic,notes_text):
     if len(res) > 0:
         db.commit()
         db.close()
-        return False
-    
-    db.add(Notes(notes_topic=notes_topic,notes_text=notes_text))
+        return -1
+    note = Notes(notes_topic=notes_topic,notes_text=notes_text)
+    db.add(note)
     db.commit()
+    statement = select(Notes.notes_id).where(Notes.notes_topic == notes_topic)
+    res = db.execute(statement).fetchone()
+    id = res[0]
+    print(id)
     db.close()
+    return id
 def deleteNote(notes_id):
     db = sessionLocal()
     statement = delete(Notes).where(Notes.notes_id == notes_id)
@@ -45,14 +50,20 @@ def showAll():
     if(len(res) == 0): 
         db.commit()
         db.close()
-        return False
+        return -1
     for i in res:
         print(i)
     db.commit()
     db.close()
-addNote("GOOGLE","hello")
+def getNotes(id):
+    db = sessionLocal()
+    statement = select(Notes.notes_id,Notes.notes_topic,Notes.notes_text).filter_by(notes_id = id)
+    res = db.execute(statement).fetchone()
+    print(res)
+    db.commit()
+    db.close()
+    return res
 
-showAll()
 app = FastAPI()
 
 app.add_middleware(
@@ -64,9 +75,21 @@ app.add_middleware(
 )
 
 # Base
-
+class notes(BaseModel):
+    notes_topic:str
+    notes_text:str
 
 
 @app.post("/addNote")
-def AddNote(data):
+def AddNote(data:notes):
+    id = addNote(data.notes_topic,data.notes_text)
+    if id==-1:
+        return {"status":"duplicate"}
+    return {"status": "success", "id": id}  
 
+@app.get("/notes/{notes_id}")
+def getNote(notes_id:int):
+    data = getNotes(notes_id)
+    return {"status":"success","result":list(data)}
+
+delete
