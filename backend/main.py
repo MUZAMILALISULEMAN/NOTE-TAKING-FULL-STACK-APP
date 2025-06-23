@@ -4,7 +4,7 @@ from sqlalchemy import select,delete,update
 import urllib.parse
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModelz
+from pydantic import BaseModel
 password = "!@#muzzy2006"
 encoded = urllib.parse.quote_plus(password)
 
@@ -25,7 +25,10 @@ def addNote(notes_topic,notes_text):
     statement = select(Notes).where(Notes.notes_topic == notes_topic)
     res = db.execute(statement).fetchall()
     if len(res) > 0:
+        db.commit()
+        db.close()
         return False
+    
     db.add(Notes(notes_topic=notes_topic,notes_text=notes_text))
     db.commit()
     db.close()
@@ -40,25 +43,30 @@ def showAll():
     statement = select(Notes.notes_id,Notes.notes_topic,Notes.notes_text)
     res = db.execute(statement).fetchall()
     if(len(res) == 0): 
+        db.commit()
+        db.close()
         return False
     for i in res:
         print(i)
     db.commit()
     db.close()
+addNote("GOOGLE","hello")
 
+showAll()
+app = FastAPI()
 
-
-# app = FastAPI()
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["http://127.0.0.1:5500"],
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://127.0.0.1:5500"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Base
 
-# @app.post("/addNote")
-# def AddNote()
+
+
+@app.post("/addNote")
+def AddNote(data):
+
