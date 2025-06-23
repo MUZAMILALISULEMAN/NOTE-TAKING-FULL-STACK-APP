@@ -2,51 +2,63 @@ import sqlalchemy.orm as orm
 from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy import select,delete,update
 import urllib.parse
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModelz
 password = "!@#muzzy2006"
 encoded = urllib.parse.quote_plus(password)
 
-engine = create_engine(f"mysql+pymysql://root:{encoded}@127.0.0.1:3306/tulips_waterplant")
+engine = create_engine(f"mysql+pymysql://root:{encoded}@127.0.0.1:3306/notes_app_db")
 Base = orm.declarative_base()   
 sessionLocal = orm.sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-class User(Base):
-    __tablename__ = "Users"
-    User_ID = Column(Integer, primary_key=True, autoincrement=True)
-    name= Column(String(100),nullable=False)
-    age = Column(Integer,nullable=False)
-class Sales(Base):
-    __tablename__ = "Sales"
-    Sales_ID = Column(Integer, primary_key=True, autoincrement=True)
-    litres= Column(Integer,nullable=False)
-    quantity = Column(Integer,nullable=False)
+class Notes(Base):
+    __tablename__ = "notes"
+    notes_id = Column(Integer,nullable=False,primary_key=True,autoincrement=True)
+    notes_topic = Column(String(50),nullable=False)
+    notes_text = Column(String(200),nullable=False)
 
 Base.metadata.create_all(bind=engine)
 
-def add_user(name,age):
+def addNote(notes_topic,notes_text):
     db = sessionLocal()
-    db.add(User(name=name,age=age))
+    statement = select(Notes).where(Notes.notes_topic == notes_topic)
+    res = db.execute(statement).fetchall()
+    if len(res) > 0:
+        return False
+    db.add(Notes(notes_topic=notes_topic,notes_text=notes_text))
     db.commit()
     db.close()
-def get_user():
+def deleteNote(notes_id):
     db = sessionLocal()
-    st = select(User.name,User.age,User.User_ID)
-    data = db.execute(st).fetchall()
-    for i in data:
+    statement = delete(Notes).where(Notes.notes_id == notes_id)
+    db.execute(statement)
+    db.commit()
+    db.close()
+def showAll():
+    db = sessionLocal()
+    statement = select(Notes.notes_id,Notes.notes_topic,Notes.notes_text)
+    res = db.execute(statement).fetchall()
+    if(len(res) == 0): 
+        return False
+    for i in res:
         print(i)
-    db.close()
-def delete_user(id):
-    db = sessionLocal()
-    st = delete(User).filter_by(id=id)
-    db.execute(st)   
     db.commit()
     db.close()
-def update_user(id,newname,newage):
-    db = sessionLocal()
-    st = update(User).filter_by(User_ID=id).values(name=newname,age=newage)
-    db.execute(st)
-    db.commit()
-    db.close()
-# add_user("MUZAMIL BROTHER",50)
-update_user(1,"MUZZY",19)
-get_user()
-# delete_user(2)
+
+
+
+# app = FastAPI()
+
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["http://127.0.0.1:5500"],
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
+
+# Base
+
+# @app.post("/addNote")
+# def AddNote()
