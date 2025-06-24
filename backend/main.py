@@ -34,7 +34,6 @@ def addNote(notes_topic,notes_text):
     statement = select(Notes.notes_id).where(Notes.notes_topic == notes_topic)
     res = db.execute(statement).fetchone()
     id = res[0]
-    print(id)
     db.close()
     return id
 def deleteNote(notes_id):
@@ -43,18 +42,20 @@ def deleteNote(notes_id):
     db.execute(statement)
     db.commit()
     db.close()
-def showAll():
+def getAll():
     db = sessionLocal()
-    statement = select(Notes.notes_id,Notes.notes_topic,Notes.notes_text)
+    statement = select(Notes.notes_id,Notes.notes_topic)
     res = db.execute(statement).fetchall()
     if(len(res) == 0): 
         db.commit()
         db.close()
         return -1
+    payload = []
     for i in res:
-        print(i)
+        payload.append(list(i))
     db.commit()
     db.close()
+    return payload
 def getNotes(id):
     db = sessionLocal()
     statement = select(Notes.notes_id,Notes.notes_topic,Notes.notes_text).filter_by(notes_id = id)
@@ -64,6 +65,20 @@ def getNotes(id):
     db.close()
     return res
 
+def updateNotes(notes_id,notes_topic,notes_text):
+    db = sessionLocal()
+    statement = update(Notes).where(Notes.notes_id == notes_id).values(notes_topic=notes_topic,notes_text=notes_text)
+    res = db.execute(statement)
+    db.commit()
+    db.close()
+def deleteNotes(id):
+    db = sessionLocal()
+    statement = delete(Notes).where(Notes.notes_id == id)
+    res = db.execute(statement)
+    flag = res.rowcount
+    db.commit()
+    db.close()
+    return flag
 app = FastAPI()
 
 app.add_middleware(
@@ -92,4 +107,20 @@ def getNote(notes_id:int):
     data = getNotes(notes_id)
     return {"status":"success","result":list(data)}
 
-delete
+@app.put("/updateNote/{notes_id}")
+def updateNote(notes_id:int,data:notes):
+    updateNotes(notes_id,data.notes_topic,data.notes_text)
+    return {"status":"success"}
+
+@app.delete("/deleteNote/{notes_id}")
+def deleteNote(notes_id:int):
+    if deleteNotes(notes_id):
+        return {"status":"success"}
+    return {"status" : "failed"}
+
+@app.get("/getAllNotes/")
+def fetchNotes():
+    data = getAll()
+    if data:
+        return {"status":"success","data":data}
+    return {"status" : "failed"}
