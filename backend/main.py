@@ -144,3 +144,9 @@ def fetchNotes(username:str = Header(...)):
     if data:
         return {"status":"success","data":data}
     return {"status" : "failed"}
+
+@app.get("/login/")
+def validation(username:str = Header(...),password:str = Header(...)):
+    if validate(username,password):
+        return {"status":"sucess"}
+    return {"status":"username or password is not valid!"}
