@@ -1,14 +1,12 @@
 import sqlalchemy.orm as orm
 from sqlalchemy import Column, Integer, String, create_engine,ForeignKey
 from sqlalchemy import select,delete,update
-import urllib.parse
 from fastapi import FastAPI,Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-password = "!@#muzzy2006"
-encoded = urllib.parse.quote_plus(password)
 
-engine = create_engine(f"mysql+pymysql://root:{encoded}@127.0.0.1:3306/notes_app_db")
+engine = create_engine("mysql+pymysql://sql12785795:Vm992JIT7H@sql12.freesqldatabase.com:3306/sql12785795")
+
 Base = orm.declarative_base()   
 sessionLocal = orm.sessionmaker(autocommit=False, autoflush=False, bind=engine)
 class User(Base):
