@@ -1,3 +1,5 @@
+  let username = "";
+  localStorage.setItem("username","muzzy")
 
     // Create animated background particles
     function createParticles() {
@@ -141,6 +143,7 @@
           const response = await fetch('http://127.0.0.1:8000/addNote', {
             method: "POST",
             headers: {
+              'username': username,
               'Content-Type': 'application/json',
             },
             body: data
@@ -310,6 +313,7 @@
     }
 
     window.addEventListener("DOMContentLoaded", () => {
+      username = localStorage.getItem('username');
       createParticles();
       monitorConnection();
       fetchAllNotes();
@@ -318,7 +322,11 @@
 
     async function fetchAllNotes() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/getAllNotes");
+        const res = await fetch("http://127.0.0.1:8000/getAllNotes",{
+          headers:{
+             'username': username,
+          }
+        })
         const data = await res.json();
 
         if (data.status === "success" && Array.isArray(data.data)) {
