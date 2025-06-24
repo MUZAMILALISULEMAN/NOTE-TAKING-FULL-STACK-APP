@@ -84,6 +84,18 @@ def deleteNotes(id):
     db.commit()
     db.close()
     return flag
+def validate(username,password):
+    db = sessionLocal()
+    statement = select(User).where(User.username == username,User.password == password)
+    res = db.execute(statement).fetchall()
+    if len(res) == 1:
+        db.commit()
+        db.close()
+        return True
+    db.commit()
+    db.close()
+    return False
+
 app = FastAPI()
 
 app.add_middleware(
