@@ -366,6 +366,46 @@
       transform: scaleY(0);
       transition: transform 0.3s ease;
     }
+    /* Logout button styling */
+.logout-container {
+  position: absolute;
+  right: 20px;
+  z-index: 100;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 25px;
+  background: var(--error-gradient);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.logout-btn:active {
+  transform: translateY(1px);
+}
+
+.logout-btn i {
+  transition: transform 0.3s ease;
+}
+
+.logout-btn:hover i {
+  transform: rotate(15deg);
+}
 
     .note:hover {
       transform: translateX(8px);

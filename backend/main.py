@@ -95,12 +95,24 @@ def validate(username,password):
     db.commit()
     db.close()
     return False
-
+def addUser(username,password):
+    db = sessionLocal()
+    statement = select(User).where(User.username == username)
+    res = db.execute(statement).fetchall()
+    if len(res) > 0:
+        db.commit()
+        db.close()
+        return False
+    user = User(username =username, password=password)
+    db.add(user)
+    db.commit()
+    db.close()
+    return True
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5500"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -142,11 +154,21 @@ def fetchNotes(username:str = Header(...)):
     print(username)
     data = getAll(username)
     if data:
-        return {"status":"success","data":data}
+        return {"status":"success","data":data} 
     return {"status" : "failed"}
+class user(BaseModel):
+    username:str
+    password:str
+@app.post("/login/")
+def validation(data:user):
+    if validate(data.username,data.password):
+        return {"status":"success"}
+    return {"message":"username or password is not valid!"}
 
-@app.get("/login/")
-def validation(username:str = Header(...),password:str = Header(...)):
-    if validate(username,password):
-        return {"status":"sucess"}
-    return {"status":"username or password is not valid!"}
+
+
+@app.post("/register/")
+def register(data:user):
+    if addUser(data.username,data.password):
+        return {"status":"success"}
+    return {"message":"user with this crediential exists unable to register"}

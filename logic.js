@@ -1,5 +1,4 @@
   let username = "";
-  localStorage.setItem("username","muzzy")
 
     // Create animated background particles
     function createParticles() {
@@ -179,6 +178,11 @@
           });
 
           const result = await response.json();
+          if(result.status != "sucess"){
+          showStatus('Unable to Update Note!');
+           saveBtn.classList.remove('loading');
+           return ;
+          }
           if (FocusedNote) {
             const h3 = FocusedNote.querySelector('h3');
             if (h3) h3.innerText = title;
@@ -346,3 +350,26 @@
       }
       updateEmptyState();
     }
+
+    // Add this to your logic.js file
+document.getElementById('logoutBtn').addEventListener('click', function() {
+
+
+    // Show logout confirmation notification
+    showStatus('Logging out...', 'info');
+    
+    // Simulate logout process
+    setTimeout(() => {
+      // Clear user session
+      localStorage.removeItem('username');
+      
+      // Show success notification
+      showStatus('Logged out successfully!', 'success');
+      
+      // Redirect to login page after delay
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1500);
+    }, 800);
+
+  });

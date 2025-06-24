@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NotesFlow - Modern Note Taking</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-animation" id="bgAnimation"></div>
+  
+<header>
+  <div class="logout-container">
+    <button class="logout-btn" id="logoutBtn">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+  </div>
+  <div class="header-content">
+    <div class="logo">📝</div>
+    <h1>NotesFlow</h1>
+  </div>
+</header>
+
+  <div class="main">
+    <div class="pane-container">
+      <!-- Left Pane: List of Notes -->
+      <div class="left-pane">
+        <div class="pane-header">
+          <div class="pane-icon notes-icon">📚</div>
+          <h2>Your Notes</h2>
+        </div>
+        <div id="notes-container">
+          <!-- Empty state initially -->
+          <div class="empty-state" id="emptyState">
+            <i class="fas fa-sticky-note"></i>
+            <h3>No Notes Yet</h3>
+            <p>Create your first note to get started. Your ideas are waiting to be captured!</p>
+          </div>
+          <!-- Notes will appear here -->
+        </div>
+      </div>
+
+      <!-- Right Pane: Note Form -->
+      <div class="right-pane">
+        <div class="pane-header">
+          <div class="pane-icon edit-icon">✨</div>
+          <h2>Create / Edit Note</h2>
+        </div>
+        
+        <div class="input-group">
+          <input type="text" placeholder="✍️ Enter your note title..." id="note-title">
+          <div class="error-message" id="title-error">Please enter a title for your note</div>
+        </div>
+        
+        <div class="input-group">
+          <textarea rows="10" placeholder="🌟 Write your amazing note here..." id="note-content"></textarea>
+          <div class="error-message" id="content-error">Please enter content for your note</div>
+        </div>
+        
+        <div class="button-group">
+          <button id="saveBtn" onclick="takeAction()">
+            <i class="fas fa-save"></i> Save Note
+          </button>
+          <button class="hide" onclick="resetForm()" id="addNewNote">
+            <i class="fas fa-plus"></i> Add New Note
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="connection-status connected" id="connectionStatus">
+    <i class="fas fa-wifi"></i>
+    <span>Connected</span>
+  </div>
+
+  
+  <script src="logic.js"></script>
+</body>
+</html>
