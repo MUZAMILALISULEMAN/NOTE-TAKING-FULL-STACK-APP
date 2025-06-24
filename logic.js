@@ -139,7 +139,7 @@
         updateEmptyState();
         // CREATE new note
         try {
-          const response = await fetch('http://127.0.0.1:8000/addNote', {
+          const response = await fetch('https://note-taking-full-stack-app.onrender.com/addNote', {
             method: "POST",
             headers: {
               'username': username,
@@ -169,7 +169,7 @@
       } else {
         document.getElementById("addNewNote").classList.remove("hide");
         try {
-          const response = await fetch(`http://127.0.0.1:8000/updateNote/${FocusedNoteId}`, {
+          const response = await fetch(`https://note-taking-full-stack-app.onrender.com/updateNote/${FocusedNoteId}`, {
             method: "PUT",
             headers: {
               'Content-Type': 'application/json',
@@ -228,7 +228,7 @@
       FocusedNote = noteElement;
       FocusedNoteId = noteElement.dataset.id;
 
-      fetch(`http://127.0.0.1:8000/notes/${FocusedNoteId}`)
+      fetch(`https://note-taking-full-stack-app.onrender.com/notes/${FocusedNoteId}`)
         .then(res => res.json())
         .then(data => {
           document.getElementById('note-title').value = data.result[1];
@@ -244,7 +244,7 @@
       const noteId = note.dataset.id;
       
       try {
-        const response = await fetch(`http://127.0.0.1:8000/deleteNote/${noteId}`, {
+        const response = await fetch(`https://note-taking-full-stack-app.onrender.com/deleteNote/${noteId}`, {
           method: "DELETE",
           headers: {
             'Content-Type': 'application/json',
@@ -291,7 +291,7 @@
 
           const content = document.getElementById('note-content').value;
           try {
-            await fetch(`http://127.0.0.1:8000/updateNote/${noteId}`, {
+            await fetch(`https://note-taking-full-stack-app.onrender.com/updateNote/${noteId}`, {
               method: "PUT",
               headers: {
                 'Content-Type': 'application/json',
@@ -326,7 +326,7 @@
 
     async function fetchAllNotes() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/getAllNotes",{
+        const res = await fetch("https://note-taking-full-stack-app.onrender.com/getAllNotes",{
           headers:{
              'username': username,
           }
