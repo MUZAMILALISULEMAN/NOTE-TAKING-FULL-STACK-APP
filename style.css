@@ -367,27 +367,42 @@
       transition: transform 0.3s ease;
     }
     /* Logout button styling */
+/* Logout Button Styling */
 .logout-container {
   position: absolute;
-  right: 20px;
+  top: 50%;
+  right: clamp(15px, 3vw, 25px);
+  transform: translateY(-50%);
   z-index: 100;
 }
 
 .logout-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 25px;
+  justify-content: center;
   background: var(--error-gradient);
   color: white;
   border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Default for larger screens - show both icon and text */
+.logout-btn {
+  gap: 10px;
+  padding: 10px 20px;
   border-radius: 8px;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.logout-btn i {
+  transition: transform 0.3s ease;
+  font-size: 16px;
 }
 
 .logout-btn:hover {
@@ -395,17 +410,54 @@
   box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
 }
 
-.logout-btn:active {
-  transform: translateY(1px);
-}
-
-.logout-btn i {
-  transition: transform 0.3s ease;
-}
-
 .logout-btn:hover i {
   transform: rotate(15deg);
 }
+
+/* Medium screens (tablets) - slightly reduce size */
+@media (max-width: 1024px) {
+  .logout-btn {
+    padding: 9px 18px;
+    font-size: 13px;
+    gap: 8px;
+  }
+  
+  .logout-btn i {
+    font-size: 15px;
+  }
+}
+
+/* Small screens - hide text and show icon only */
+@media (max-width: 768px) {
+  .logout-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    padding: 0;
+  }
+  
+  .logout-btn .logout-text {
+    display: none;
+  }
+  
+  .logout-btn i {
+    font-size: 18px;
+    margin: 0;
+  }
+}
+
+/* Extra small screens - smaller icon button */
+@media (max-width: 480px) {
+  .logout-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .logout-btn i {
+    font-size: 16px;
+  }
+}
+/* Adjust header for vertical centering */
 
     .note:hover {
       transform: translateX(8px);
