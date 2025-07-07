@@ -5,7 +5,7 @@ from fastapi import FastAPI,Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-engine = create_engine("mysql+pymysql://sql12785795:Vm992JIT7H@sql12.freesqldatabase.com:3306/sql12785795")
+engine = create_engine("postgresql://postgres:%21%40%23muzzy2006@db.drshcrbngjwujwebprqj.supabase.co:5432/postgres")
 
 Base = orm.declarative_base()   
 sessionLocal = orm.sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -3,3 +3,4 @@ pydantic
 sqlalchemy
 pymysql
 uvicorn[standard]
+psycopg2-binary
