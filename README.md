@@ -44,5 +44,4 @@ A sleek, full-stack **notes management web app** that lets users log in and crea
 
 ---
 
-## 🗂️ Project Structure
 
