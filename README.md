@@ -19,16 +19,16 @@ A sleek, full-stack **notes management web app** that lets users log in and crea
 
 ## 💻 Live Preview
 
-🌐 **DEMO**: [Live UI on GitHub Pages](https://your-username.github.io/note-taking-app)
+🌐 **DEMO**: [Live UI on GitHub Pages](https://muzamilalisuleman.github.io/NOTE-TAKING-FULL-STACK-APP/)
 
 ---
 
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="https://github.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/imgs/1.png" width="30%" />
-  <img src="https://github.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/imgs/2.png" width="30%" />
-  <img src="https://github.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/imgs/3.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/main/imgs/1.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/main/imgs/2.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/main/imgs/3.png" width="30%" />
 </div>
 
 ---
