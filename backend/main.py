@@ -4,6 +4,7 @@ from sqlalchemy import select,delete,update
 from fastapi import FastAPI,Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import os
 key = os.getenv("DB-KEY") 
 DATABASE_URL = f"postgresql+psycopg2://postgres.lkuvnupemcccfkvrtthw:{key}@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
 
