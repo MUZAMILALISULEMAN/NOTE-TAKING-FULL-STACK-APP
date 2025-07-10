@@ -26,9 +26,9 @@ A sleek, full-stack **notes management web app** that lets users log in and crea
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/main/imgs/1.png" width="30%" />
-  <img src="https://raw.githubusercontent.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/main/imgs/2.png" width="30%" />
-  <img src="https://raw.githubusercontent.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/main/imgs/3.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/main/imgs/1.png" width="30%"  height="300px"/>
+  <img src="https://raw.githubusercontent.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/main/imgs/2.png" width="30%"  height="300px"/>
+  <img src="https://raw.githubusercontent.com/MUZAMILALISULEMAN/NOTE-TAKING-FULL-STACK-APP/main/imgs/3.png" width="30%"  height="300px"/>
 </div>
 
 ---
